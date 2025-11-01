@@ -1,0 +1,4 @@
+1;Contenedor 1;Av. la Cultura;-18034652;-70256448;Lleno
+2;Contenedor 2;Parque Villa la Agronomica;-18033659;-70254148;Lleno
+3;Contenedor 3;Asoc. la Agronomica;-18034770;-70254990;Util
+4;Contenedor 4;Asoc. la Agronomica;-18033819;-70252796;Util

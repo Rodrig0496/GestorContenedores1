@@ -1,0 +1,116 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\rc202\\source\\repos\\GestionContenedores\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|C:\\Users\\rc202\\source\\repos\\GestionContenedores\\gestioncontenedores\\services\\fileservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|solutionrelative:gestioncontenedores\\services\\fileservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|c:\\users\\rc202\\source\\repos\\gestioncontenedores\\gestioncontenedores\\cambioestado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|solutionrelative:gestioncontenedores\\cambioestado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|C:\\Users\\rc202\\source\\repos\\GestionContenedores\\gestioncontenedores\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|solutionrelative:gestioncontenedores\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|C:\\Users\\rc202\\source\\repos\\GestionContenedores\\gestioncontenedores\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|solutionrelative:gestioncontenedores\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|C:\\Users\\rc202\\source\\repos\\GestionContenedores\\gestioncontenedores\\cambioestado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|solutionrelative:gestioncontenedores\\cambioestado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|C:\\Users\\rc202\\source\\repos\\GestionContenedores\\gestioncontenedores\\models\\contenedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|solutionrelative:gestioncontenedores\\models\\contenedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FileService.cs",
+              "DocumentMoniker": "C:\\Users\\rc202\\source\\repos\\GestionContenedores\\GestionContenedores\\Services\\FileService.cs",
+              "RelativeDocumentMoniker": "GestionContenedores\\Services\\FileService.cs",
+              "ToolTip": "C:\\Users\\rc202\\source\\repos\\GestionContenedores\\GestionContenedores\\Services\\FileService.cs",
+              "RelativeToolTip": "GestionContenedores\\Services\\FileService.cs",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAowFAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T16:21:49.575Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CambioEstado.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\rc202\\source\\repos\\GestionContenedores\\GestionContenedores\\CambioEstado.cs",
+              "RelativeDocumentMoniker": "GestionContenedores\\CambioEstado.cs",
+              "ToolTip": "C:\\Users\\rc202\\source\\repos\\GestionContenedores\\GestionContenedores\\CambioEstado.cs [Dise\u00F1o]",
+              "RelativeToolTip": "GestionContenedores\\CambioEstado.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T16:08:03.066Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\rc202\\source\\repos\\GestionContenedores\\GestionContenedores\\Form1.cs",
+              "RelativeDocumentMoniker": "GestionContenedores\\Form1.cs",
+              "ToolTip": "C:\\Users\\rc202\\source\\repos\\GestionContenedores\\GestionContenedores\\Form1.cs [Dise\u00F1o]",
+              "RelativeToolTip": "GestionContenedores\\Form1.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T15:21:43.136Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\rc202\\source\\repos\\GestionContenedores\\GestionContenedores\\Form1.cs",
+              "RelativeDocumentMoniker": "GestionContenedores\\Form1.cs",
+              "ToolTip": "C:\\Users\\rc202\\source\\repos\\GestionContenedores\\GestionContenedores\\Form1.cs",
+              "RelativeToolTip": "GestionContenedores\\Form1.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAAAG8AAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T15:54:35.26Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CambioEstado.cs",
+              "DocumentMoniker": "C:\\Users\\rc202\\source\\repos\\GestionContenedores\\GestionContenedores\\CambioEstado.cs",
+              "RelativeDocumentMoniker": "GestionContenedores\\CambioEstado.cs",
+              "ToolTip": "C:\\Users\\rc202\\source\\repos\\GestionContenedores\\GestionContenedores\\CambioEstado.cs",
+              "RelativeToolTip": "GestionContenedores\\CambioEstado.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T16:28:37.177Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Contenedor.cs",
+              "DocumentMoniker": "C:\\Users\\rc202\\source\\repos\\GestionContenedores\\GestionContenedores\\Models\\Contenedor.cs",
+              "RelativeDocumentMoniker": "GestionContenedores\\Models\\Contenedor.cs",
+              "ToolTip": "C:\\Users\\rc202\\source\\repos\\GestionContenedores\\GestionContenedores\\Models\\Contenedor.cs",
+              "RelativeToolTip": "GestionContenedores\\Models\\Contenedor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T16:21:07.614Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
