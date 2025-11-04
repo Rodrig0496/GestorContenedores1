@@ -101,6 +101,7 @@ namespace GestionContenedores
         {
             var formCambioEstado = new CambioEstado(contenedores);
             formCambioEstado.EstadoCambiado += FormCambioEstado_EstadoCambiado;
+            formCambioEstado.ContenedorAgregado += FormCambioEstado_ContenedorAgregado;
             formCambioEstado.ShowDialog();
         }
 
@@ -114,6 +115,13 @@ namespace GestionContenedores
                           MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        
+        private void FormCambioEstado_ContenedorAgregado(object sender, EventArgs e)
+        {
+            // Recargar datos desde el archivo
+            CargarDatos();
+            MessageBox.Show("Contenedor agregado correctamente", "Éxito",
+                          MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
     }
 }

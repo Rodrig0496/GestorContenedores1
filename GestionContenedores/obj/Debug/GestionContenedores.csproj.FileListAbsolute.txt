@@ -22,3 +22,15 @@ C:\Users\HP\source\repos\GestionContenedores\GestionContenedores\obj\Debug\Gesti
 C:\Users\HP\source\repos\GestionContenedores\GestionContenedores\obj\Debug\GestionContenedores.csproj.CoreCompileInputs.cache
 C:\Users\HP\source\repos\GestionContenedores\GestionContenedores\obj\Debug\GestionContenedores.exe
 C:\Users\HP\source\repos\GestionContenedores\GestionContenedores\obj\Debug\GestionContenedores.pdb
+C:\Users\rc202\source\repos\GestionContenedores_Colque_Lanchipa\GestionContenedores\bin\Debug\GestionContenedores.exe.config
+C:\Users\rc202\source\repos\GestionContenedores_Colque_Lanchipa\GestionContenedores\bin\Debug\GestionContenedores.exe
+C:\Users\rc202\source\repos\GestionContenedores_Colque_Lanchipa\GestionContenedores\bin\Debug\GestionContenedores.pdb
+C:\Users\rc202\source\repos\GestionContenedores_Colque_Lanchipa\GestionContenedores\obj\Debug\GestionContenedores.csproj.AssemblyReference.cache
+C:\Users\rc202\source\repos\GestionContenedores_Colque_Lanchipa\GestionContenedores\obj\Debug\GestionContenedores.exe.config
+C:\Users\rc202\source\repos\GestionContenedores_Colque_Lanchipa\GestionContenedores\obj\Debug\GestionContenedores.CambioEstado.resources
+C:\Users\rc202\source\repos\GestionContenedores_Colque_Lanchipa\GestionContenedores\obj\Debug\GestionContenedores.Form1.resources
+C:\Users\rc202\source\repos\GestionContenedores_Colque_Lanchipa\GestionContenedores\obj\Debug\GestionContenedores.Properties.Resources.resources
+C:\Users\rc202\source\repos\GestionContenedores_Colque_Lanchipa\GestionContenedores\obj\Debug\GestionContenedores.csproj.GenerateResource.cache
+C:\Users\rc202\source\repos\GestionContenedores_Colque_Lanchipa\GestionContenedores\obj\Debug\GestionContenedores.csproj.CoreCompileInputs.cache
+C:\Users\rc202\source\repos\GestionContenedores_Colque_Lanchipa\GestionContenedores\obj\Debug\GestionContenedores.exe
+C:\Users\rc202\source\repos\GestionContenedores_Colque_Lanchipa\GestionContenedores\obj\Debug\GestionContenedores.pdb
