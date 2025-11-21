@@ -3,15 +3,19 @@
   "WorkspaceRootPath": "C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\gestioncontenedores\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|solutionrelative:gestioncontenedores\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\gestioncontenedores\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|solutionrelative:gestioncontenedores\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|c:\\users\\rc202\\source\\repos\\gestioncontenedores_colque_lanchipa\\gestioncontenedores\\cambioestado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\gestioncontenedores\\models\\contenedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|solutionrelative:gestioncontenedores\\models\\contenedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|c:\\users\\rc202\\source\\repos\\gestioncontenedores_colque_lanchipa\\gestioncontenedores\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|solutionrelative:gestioncontenedores\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\gestioncontenedores\\cambioestado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|solutionrelative:gestioncontenedores\\cambioestado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
@@ -21,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\gestioncontenedores\\cambioestado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|solutionrelative:gestioncontenedores\\cambioestado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\gestioncontenedores\\models\\contenedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1FD6CA7F-F7EB-4E5B-8BA3-88C05008862E}|GestionContenedores\\GestionContenedores.csproj|solutionrelative:gestioncontenedores\\models\\contenedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,31 +39,17 @@
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "FileService.cs",
-              "DocumentMoniker": "C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\GestionContenedores\\Services\\FileService.cs",
-              "RelativeDocumentMoniker": "GestionContenedores\\Services\\FileService.cs",
-              "ToolTip": "C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\GestionContenedores\\Services\\FileService.cs",
-              "RelativeToolTip": "GestionContenedores\\Services\\FileService.cs",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAowFAAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T16:21:49.575Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "CambioEstado.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\GestionContenedores\\CambioEstado.cs",
               "RelativeDocumentMoniker": "GestionContenedores\\CambioEstado.cs",
               "ToolTip": "C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\GestionContenedores\\CambioEstado.cs [Dise\u00F1o]",
               "RelativeToolTip": "GestionContenedores\\CambioEstado.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T16:08:03.066Z",
-              "EditorCaption": " [Dise\u00F1o]"
+              "WhenOpened": "2025-10-30T16:08:03.066Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\GestionContenedores\\Form1.cs",
               "RelativeDocumentMoniker": "GestionContenedores\\Form1.cs",
@@ -76,7 +62,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Form1.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\GestionContenedores\\Form1.cs",
               "RelativeDocumentMoniker": "GestionContenedores\\Form1.cs",
@@ -88,20 +74,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CambioEstado.cs",
-              "DocumentMoniker": "C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\GestionContenedores\\CambioEstado.cs",
-              "RelativeDocumentMoniker": "GestionContenedores\\CambioEstado.cs",
-              "ToolTip": "C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\GestionContenedores\\CambioEstado.cs",
-              "RelativeToolTip": "GestionContenedores\\CambioEstado.cs",
-              "ViewState": "AgIAAFwAAAAAAAAAAAAuwLgAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T16:28:37.177Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "Contenedor.cs",
               "DocumentMoniker": "C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\GestionContenedores\\Models\\Contenedor.cs",
               "RelativeDocumentMoniker": "GestionContenedores\\Models\\Contenedor.cs",
@@ -109,7 +82,32 @@
               "RelativeToolTip": "GestionContenedores\\Models\\Contenedor.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T16:21:07.614Z"
+              "WhenOpened": "2025-10-30T16:21:07.614Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FileService.cs",
+              "DocumentMoniker": "C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\GestionContenedores\\Services\\FileService.cs",
+              "RelativeDocumentMoniker": "GestionContenedores\\Services\\FileService.cs",
+              "ToolTip": "C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\GestionContenedores\\Services\\FileService.cs",
+              "RelativeToolTip": "GestionContenedores\\Services\\FileService.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAowFAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T16:21:49.575Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CambioEstado.cs",
+              "DocumentMoniker": "C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\GestionContenedores\\CambioEstado.cs",
+              "RelativeDocumentMoniker": "GestionContenedores\\CambioEstado.cs",
+              "ToolTip": "C:\\Users\\rc202\\source\\repos\\GestionContenedores_Colque_Lanchipa\\GestionContenedores\\CambioEstado.cs",
+              "RelativeToolTip": "GestionContenedores\\CambioEstado.cs",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAuwLgAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T16:28:37.177Z"
             }
           ]
         }

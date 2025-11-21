@@ -3,3 +3,4 @@
 3;Contenedor 3;Asoc. la Agronomica;-18034770;-70254990;Util
 4;Contenedor 4;Asoc. la Agronomica;-18033819;-70252796;Util
 5;Contenedor 5;Asoc. la Agronomica;-1855555;-7055555;Util
+6;Contenedor 6;Calle Zela;-83271;32371;Util

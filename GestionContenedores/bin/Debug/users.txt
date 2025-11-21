@@ -1,0 +1,2 @@
+admin;admin123;0
+vecino1;clave1;1

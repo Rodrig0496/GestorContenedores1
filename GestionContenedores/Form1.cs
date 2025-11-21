@@ -16,36 +16,54 @@ namespace GestionContenedores
     public partial class Form1 : Form
     {
         private List<Contenedor> contenedores;
-        
-        public Form1()
+        private int nivelPermiso;
+        private string usuarioActual;
+
+        public Form1(int nivelPermiso, string usuario)
         {
             InitializeComponent();
+            this.nivelPermiso = nivelPermiso;
+            this.usuarioActual = usuario;
+
             ConfigurarGrafico();
             CargarDatos();
+
             
+            if (nivelPermiso == 1) 
+            {
+                btnCambiarEstado.Enabled = false;
+                MessageBox.Show($"Bienvenido {usuario} (solo lectura)", "Acceso limitado",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show($"Bienvenido {usuario} (admin)", "Acceso total",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
         }
         private void ConfigurarGrafico()
         {
-            // Configurar el chart que ya existe en el diseñador
+            
             chartBarras.Titles.Clear();
             chartBarras.Series.Clear();
             chartBarras.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
             chartBarras.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
 
-            // Desactivar la leyenda
+            
             chartBarras.Legends[0].Enabled = false;
 
-            // Agregar título
+            
             chartBarras.Titles.Add("CONTENEDORES POR ESTADO");
             chartBarras.Titles[0].Font = new System.Drawing.Font("Arial", 12, FontStyle.Bold);
         }
 
         private void ActualizarGrafico()
         {
-            // Limpiar series existentes
+            
             chartBarras.Series.Clear();
 
-            // Crear nueva serie
+           
             Series series = new Series("EstadosContenedores");
             series.ChartType = SeriesChartType.Column;
             series.IsValueShownAsLabel = true;
