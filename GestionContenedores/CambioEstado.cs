@@ -26,6 +26,15 @@ namespace GestionContenedores
             ConfigurarFormularioAgregar();
         }
 
+        public void PrellenarCoordenadas(double latitud, double longitud)
+        {
+            // Asignamos los valores a los TextBox
+            txtLatitud.Text = latitud.ToString();
+            txtLongitud.Text = longitud.ToString();
+
+            // Opcional: Seleccionar automáticamente el estado "Util" para un nuevo contenedor
+            cmbEstado.SelectedIndex = 0;
+        }
         private void ConfigurarFormularioAgregar()
         {
             

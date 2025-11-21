@@ -10,6 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using GMap.NET;
+using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
 
 namespace GestionContenedores
 {
@@ -18,6 +22,7 @@ namespace GestionContenedores
         private List<Contenedor> contenedores;
         private int nivelPermiso;
         private string usuarioActual;
+        private GMapOverlay marcadoresOverlay = new GMapOverlay("marcadores");
 
         public Form1(int nivelPermiso, string usuario)
         {
@@ -25,7 +30,7 @@ namespace GestionContenedores
             this.nivelPermiso = nivelPermiso;
             this.usuarioActual = usuario;
 
-            ConfigurarGrafico();
+            //ConfigurarGrafico();
             CargarDatos();
 
             
@@ -41,7 +46,11 @@ namespace GestionContenedores
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
+            ConfigurarMapa();
+
         }
+
+        /*
         private void ConfigurarGrafico()
         {
             
@@ -57,7 +66,7 @@ namespace GestionContenedores
             chartBarras.Titles.Add("CONTENEDORES POR ESTADO");
             chartBarras.Titles[0].Font = new System.Drawing.Font("Arial", 12, FontStyle.Bold);
         }
-
+        
         private void ActualizarGrafico()
         {
             
@@ -86,7 +95,72 @@ namespace GestionContenedores
             // Actualizar estadísticas
             ActualizarEstadisticas(utilizables, llenos);
         }
+        */
 
+        private void ConfigurarMapa()
+        {
+            // Configuración básica
+            gMapControl1.MapProvider = GMapProviders.GoogleMap; // O OpenStreetMapProvider
+            gMapControl1.DragButton = MouseButtons.Left;
+            gMapControl1.CanDragMap = true;
+            gMapControl1.ShowCenter = false; // Quitar la cruz roja del centro
+
+            // Posición inicial (Tacna, según tus datos)
+            gMapControl1.Position = new PointLatLng(-18.0146, -70.2536);
+            gMapControl1.MinZoom = 5;
+            gMapControl1.MaxZoom = 20;
+            gMapControl1.Zoom = 13;
+
+            // IMPORTANTE: Agregar la capa al mapa una sola vez
+            gMapControl1.Overlays.Add(marcadoresOverlay);
+        }
+
+        private void ActualizarMapa()
+        {
+            // Limpiar marcadores anteriores para no duplicar
+            marcadoresOverlay.Markers.Clear();
+
+            if (contenedores == null) return;
+
+            foreach (var item in contenedores)
+            {
+                // Validación básica de coordenadas (para evitar errores si son 0)
+                if (item.Latitud != 0 && item.Longitud != 0)
+                {
+                    PointLatLng punto = new PointLatLng(item.Latitud, item.Longitud);
+
+                    // Lógica de colores según estado (Lleno = Rojo, Util = Verde)
+                    GMarkerGoogleType tipoPin = GMarkerGoogleType.green;
+
+                    if (item.Estado == "Lleno")
+                    {
+                        tipoPin = GMarkerGoogleType.red;
+                    }
+                    else if (item.Estado == "Mitad") // Por si agregas este estado luego
+                    {
+                        tipoPin = GMarkerGoogleType.yellow;
+                    }
+
+                    // Crear el marcador
+                    GMapMarker marcador = new GMarkerGoogle(punto, tipoPin);
+
+                    // Agregar tooltip (texto al pasar el mouse)
+                    marcador.ToolTipText = $"ID: {item.Id}\n{item.Nombre}\nEstado: {item.Estado}";
+                    marcador.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+
+                    // Agregarlo al mapa
+                    marcadoresOverlay.Markers.Add(marcador);
+                }
+            }
+
+            // Opcional: Centrar el mapa en el primer contenedor si existe
+            if (contenedores.Count > 0)
+            {
+                gMapControl1.Position = new PointLatLng(contenedores[0].Latitud, contenedores[0].Longitud);
+            }
+
+            gMapControl1.Refresh(); // Forzar repintado
+        }
         private void ActualizarEstadisticas(int utilizables, int llenos)
         {
             lblEstadisticas.Text = $"Utilizables: {utilizables} | Llenos: {llenos} | Total: {contenedores.Count}";
@@ -95,7 +169,46 @@ namespace GestionContenedores
         {
             contenedores = FileService.LeerContenedores();
             ActualizarDataGridView();
-            ActualizarGrafico();
+            //ActualizarGrafico();
+            ActualizarMapa();
+            DibujarPinesEnMapa();
+        }
+
+        private void DibujarPinesEnMapa()
+        {
+            // Limpiamos marcadores viejos para no duplicar
+            marcadoresOverlay.Markers.Clear();
+
+            if (contenedores == null) return;
+
+            foreach (var item in contenedores)
+            {
+                // Verificar que las coordenadas sean válidas (diferentes de 0)
+                if (item.Latitud != 0 && item.Longitud != 0)
+                {
+                    PointLatLng punto = new PointLatLng(item.Latitud, item.Longitud);
+
+                    // Lógica de Colores: Rojo si está lleno, Verde si es útil
+                    GMarkerGoogleType tipoPin = GMarkerGoogleType.green;
+                    if (item.Estado.Trim().Equals("Lleno", StringComparison.OrdinalIgnoreCase))
+                    {
+                        tipoPin = GMarkerGoogleType.red;
+                    }
+
+                    // Crear el marcador
+                    GMapMarker marcador = new GMarkerGoogle(punto, tipoPin);
+
+                    // Tooltip: Lo que sale al poner el mouse encima
+                    marcador.ToolTipText = $"{item.Nombre}\nEstado: {item.Estado}\n{item.Direccion}";
+                    marcador.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+
+                    // Agregar a la capa
+                    marcadoresOverlay.Markers.Add(marcador);
+                }
+            }
+
+            // Refrescar el mapa para ver los cambios
+            gMapControl1.Refresh();
         }
 
         private void ActualizarDataGridView()
@@ -128,7 +241,8 @@ namespace GestionContenedores
             // Guardar cambios en el archivo y actualizar DataGridView
             FileService.GuardarContenedores(contenedores);
             ActualizarDataGridView();
-            ActualizarGrafico();
+            //ActualizarGrafico();
+            DibujarPinesEnMapa();
             MessageBox.Show("Estado actualizado correctamente", "Éxito",
                           MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -141,5 +255,47 @@ namespace GestionContenedores
                           MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void chartBarras_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gMapControl1_MouseClick(object sender, MouseEventArgs e)
+        {
+            // 1. Verificar si fue clic DERECHO
+            if (e.Button == MouseButtons.Right)
+            {
+                // 2. Verificar si es ADMINISTRADOR (Nivel 0)
+                if (this.nivelPermiso == 0)
+                {
+                    // 3. Obtener la coordenada geográfica exacta donde se hizo clic
+                    // 'FromLocalToLatLng' convierte la posición X,Y del mouse a Lat/Lng real
+                    PointLatLng puntoClic = gMapControl1.FromLocalToLatLng(e.X, e.Y);
+
+                    // 4. Preguntar si desea agregar
+                    DialogResult respuesta = MessageBox.Show(
+                        "¿Quiere ingresar un nuevo contenedor en este punto?",
+                        "Nuevo Contenedor",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        // 5. Instanciar el formulario CambioEstado
+                        // Pasamos la lista actual para mantener la referencia
+                        var formNuevo = new CambioEstado(this.contenedores);
+
+                        // 6. Pasar las coordenadas al formulario
+                        formNuevo.PrellenarCoordenadas(puntoClic.Lat, puntoClic.Lng);
+
+                        // 7. Suscribirnos al evento para recargar si se guarda
+                        formNuevo.ContenedorAgregado += FormCambioEstado_ContenedorAgregado;
+
+                        // 8. Mostrar el formulario
+                        formNuevo.ShowDialog();
+                    }
+                }
+            }
+        }
     }
 }

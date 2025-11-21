@@ -34,15 +34,26 @@ namespace GestionContenedores.Services
                         continue;
 
                     var datos = linea.Split(';');
-                    if (datos.Length == 6)
+                    if (datos.Length >= 6)
                     {
+                        // 1. Leemos el número "crudo" del archivo
+                        double latTemp = double.Parse(datos[3]);
+                        double lonTemp = double.Parse(datos[4]);
+
+                        // 2. LOGICA INTELIGENTE:
+                        // Si el número es mayor a 1000 (o menor a -1000), es formato antiguo -> Dividimos.
+                        // Si es un número pequeño (como -18), es formato nuevo -> Lo dejamos igual.
+                        if (Math.Abs(latTemp) > 1000) latTemp = latTemp / 1000000.0;
+                        if (Math.Abs(lonTemp) > 1000) lonTemp = lonTemp / 1000000.0;
+
                         var contenedor = new Contenedor
                         {
                             Id = int.Parse(datos[0]),
                             Nombre = datos[1],
                             Direccion = datos[2],
-                            Latitud = double.Parse(datos[3]),
-                            Longitud = double.Parse(datos[4]),
+
+                            Latitud = latTemp,
+                            Longitud = lonTemp,
                             Estado = datos[5]
                         };
                         contenedores.Add(contenedor);

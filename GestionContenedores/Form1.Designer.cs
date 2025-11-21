@@ -28,17 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.dgvContenedores = new System.Windows.Forms.DataGridView();
             this.btnCambiarEstado = new System.Windows.Forms.Button();
-            this.chartBarras = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.lblEstadisticas = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContenedores)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartBarras)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,22 +59,6 @@
             this.btnCambiarEstado.Text = "Cambiar Estado";
             this.btnCambiarEstado.UseVisualStyleBackColor = false;
             this.btnCambiarEstado.Click += new System.EventHandler(this.btnCambiarEstado_Click);
-            // 
-            // chartBarras
-            // 
-            chartArea2.Name = "ChartArea1";
-            this.chartBarras.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartBarras.Legends.Add(legend2);
-            this.chartBarras.Location = new System.Drawing.Point(513, 81);
-            this.chartBarras.Name = "chartBarras";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartBarras.Series.Add(series2);
-            this.chartBarras.Size = new System.Drawing.Size(229, 210);
-            this.chartBarras.TabIndex = 2;
-            this.chartBarras.Text = "chart1";
             // 
             // lblEstadisticas
             // 
@@ -109,22 +89,48 @@
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
+            // gMapControl1
+            // 
+            this.gMapControl1.Bearing = 0F;
+            this.gMapControl1.CanDragMap = true;
+            this.gMapControl1.EmptyTileColor = System.Drawing.Color.Navy;
+            this.gMapControl1.GrayScaleMode = false;
+            this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.gMapControl1.LevelsKeepInMemmory = 5;
+            this.gMapControl1.Location = new System.Drawing.Point(500, 103);
+            this.gMapControl1.MarkersEnabled = true;
+            this.gMapControl1.MaxZoom = 2;
+            this.gMapControl1.MinZoom = 2;
+            this.gMapControl1.MouseWheelZoomEnabled = true;
+            this.gMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.gMapControl1.Name = "gMapControl1";
+            this.gMapControl1.NegativeMode = false;
+            this.gMapControl1.PolygonsEnabled = true;
+            this.gMapControl1.RetryLoadTile = 0;
+            this.gMapControl1.RoutesEnabled = true;
+            this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.gMapControl1.ShowTileGridLines = false;
+            this.gMapControl1.Size = new System.Drawing.Size(410, 364);
+            this.gMapControl1.TabIndex = 6;
+            this.gMapControl1.Zoom = 0D;
+            this.gMapControl1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gMapControl1_MouseClick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(922, 517);
+            this.Controls.Add(this.gMapControl1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblEstadisticas);
-            this.Controls.Add(this.chartBarras);
             this.Controls.Add(this.btnCambiarEstado);
             this.Controls.Add(this.dgvContenedores);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dgvContenedores)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartBarras)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -135,10 +141,10 @@
 
         private System.Windows.Forms.DataGridView dgvContenedores;
         private System.Windows.Forms.Button btnCambiarEstado;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartBarras;
         private System.Windows.Forms.Label lblEstadisticas;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private GMap.NET.WindowsForms.GMapControl gMapControl1;
     }
 }
 
