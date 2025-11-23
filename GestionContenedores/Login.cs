@@ -13,68 +13,37 @@ namespace GestionContenedores
 {
     public partial class Login : Form
     {
-        string usersFilePath;
+     
 
-        public int NivelPermiso { get; private set; } = -1; 
-        public string UsuarioActual { get; private set; } = "";
+        public int NivelPermiso { get; private set; }
+        public string UsuarioActual { get; private set; }
 
         public Login()
         {
             InitializeComponent();
-            usersFilePath = Path.Combine(Application.StartupPath, "users.txt");
-            CrearArchivoUsuarios();
+            
         }
 
-        private void CrearArchivoUsuarios()
-        {
-            if (!File.Exists(usersFilePath))
-            {
-                string[] ejemplo = new string[]
-                {
-                    "admin;admin123;0", // admin
-                    "vecino1;clave1;1"  // usuario
-                };
-                File.WriteAllLines(usersFilePath, ejemplo);
-            }
-        }
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            string usuario = txtUsuario.Text.Trim();
-            string contrasena = txtContraseña.Text.Trim();
-
-            if (usuario == "" || contrasena == "")
+            using (var db = new GestionDBDataContext())
             {
-                MessageBox.Show("Por favor ingresa usuario y contraseña.", "Aviso",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                // CONSULTA LINQ: Buscar usuario que coincida
+                var user = db.Usuarios
+                             .FirstOrDefault(u => u.Username == txtUsuario.Text && u.Password == txtContraseña.Text);
 
-            try
-            {
-                var lineas = File.ReadAllLines(usersFilePath);
-
-                foreach (var linea in lineas)
+                if (user != null)
                 {
-                    var partes = linea.Split(';');
-                    if (partes.Length == 3 &&
-                        partes[0].Trim() == usuario &&
-                        partes[1].Trim() == contrasena)
-                    {
-                        UsuarioActual = usuario;
-                        NivelPermiso = int.Parse(partes[2].Trim());
-                        this.DialogResult = DialogResult.OK;
-                        return;
-                    }
+                    NivelPermiso = user.NivelPermiso;
+                    UsuarioActual = user.Username;
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
                 }
-
-                MessageBox.Show("Usuario o contraseña incorrectos.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error leyendo users.txt:\n" + ex.Message,
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                {
+                    MessageBox.Show("Credenciales incorrectas");
+                }
             }
         }
 

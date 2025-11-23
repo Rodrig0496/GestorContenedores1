@@ -14,26 +14,35 @@ namespace GestionContenedores
 {
     public partial class CambioEstado : Form
     {
-        private List<Contenedor> contenedores;
-        private Contenedor contenedorSeleccionado;
-        public event EventHandler EstadoCambiado;
-        public event EventHandler ContenedorAgregado;
-        public CambioEstado(List<Contenedor> contenedoresList)
+        private Contenedor contenedorActual; // El objeto LINQ
+        public CambioEstado(Contenedor contenedor)
         {
             InitializeComponent();
-            contenedores = contenedoresList;
-            CargarComboBox();
-            ConfigurarFormularioAgregar();
+            contenedorActual = contenedor;
+
+            if (contenedorActual != null)
+            {
+                // Es EDICIÓN: Cargar datos en los textbox
+                txtId.Text = contenedorActual.Id.ToString();
+                txtNombre.Text = contenedorActual.Nombre;
+                // ... cargar resto de campos ...
+
+                // Configurar UI
+                btnAgregar.Enabled = false; // Ocultar botón agregar
+                btnGuardar.Enabled = true;  // Mostrar botón guardar cambios
+            }
+            else
+            {
+                // Es NUEVO
+                btnAgregar.Enabled = true;
+                btnGuardar.Enabled = false;
+            }
         }
 
-        public void PrellenarCoordenadas(double latitud, double longitud)
+        public void PrellenarCoordenadas(double lat, double lng)
         {
-            // Asignamos los valores a los TextBox
-            txtLatitud.Text = latitud.ToString();
-            txtLongitud.Text = longitud.ToString();
-
-            // Opcional: Seleccionar automáticamente el estado "Util" para un nuevo contenedor
-            cmbEstado.SelectedIndex = 0;
+            txtLatitud.Text = lat.ToString();
+            txtLongitud.Text = lng.ToString();
         }
         private void ConfigurarFormularioAgregar()
         {
@@ -102,20 +111,19 @@ namespace GestionContenedores
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (contenedorSeleccionado == null)
+            using (var db = new GestionDBDataContext())
             {
-                MessageBox.Show("Por favor, seleccione un contenedor", "Advertencia",
-                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                // Volvemos a buscar el objeto en este contexto para editarlo
+                var c = db.Contenedores.Single(x => x.Id == contenedorActual.Id);
+
+                c.Estado = rbtnUtilizable.Checked ? "Util" : "Lleno";
+                // Actualizar otros campos si es necesario...
+
+                db.SubmitChanges(); // LINQ detecta el cambio y hace el UPDATE solo
+
+                MessageBox.Show("Estado actualizado!");
+                this.Close();
             }
-
-            // Actualizar estado según el radio button seleccionado
-            contenedorSeleccionado.Estado = rbtnUtilizable.Checked ? "Util" : "Lleno";
-
-            // Disparar evento para notificar el cambio
-            EstadoCambiado?.Invoke(this, EventArgs.Empty);
-
-            this.Close();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -125,67 +133,22 @@ namespace GestionContenedores
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            try
+            using (var db = new GestionDBDataContext())
             {
-                // Validar campos
-                if (string.IsNullOrWhiteSpace(txtId.Text) ||
-                    string.IsNullOrWhiteSpace(txtNombre.Text) ||
-                    string.IsNullOrWhiteSpace(txtDireccion.Text) ||
-                    string.IsNullOrWhiteSpace(txtLatitud.Text) ||
-                    string.IsNullOrWhiteSpace(txtLongitud.Text))
+                Contenedor nuevo = new Contenedor
                 {
-                    MessageBox.Show("Por favor, complete todos los campos", "Advertencia",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                // Validar que el ID no exista
-                int nuevoId = int.Parse(txtId.Text);
-                if (contenedores.Any(c => c.Id == nuevoId))
-                {
-                    MessageBox.Show("El ID ya existe. Por favor, use un ID diferente", "Error",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Crear nuevo contenedor
-                Contenedor nuevoContenedor = new Contenedor
-                {
-                    Id = nuevoId,
                     Nombre = txtNombre.Text,
                     Direccion = txtDireccion.Text,
                     Latitud = double.Parse(txtLatitud.Text),
                     Longitud = double.Parse(txtLongitud.Text),
-                    Estado = cmbEstado.SelectedItem.ToString()
+                    Estado = cmbEstado.Text
                 };
 
-                // Agregar a la lista local
-                contenedores.Add(nuevoContenedor);
+                db.Contenedores.InsertOnSubmit(nuevo); // Prepara la inserción
+                db.SubmitChanges(); // Ejecuta el SQL
 
-                // Guardar en archivo
-                FileService.GuardarContenedores(contenedores);
-
-                // Disparar evento
-                ContenedorAgregado?.Invoke(this, EventArgs.Empty);
-
-                // Actualizar combobox
-                CargarComboBox();
-
-                // Limpiar campos
-                LimpiarCampos();
-
-                MessageBox.Show("Contenedor agregado correctamente", "Éxito",
-                              MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Por favor, ingrese valores válidos para ID, Latitud y Longitud", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al agregar contenedor: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Guardado!");
+                this.Close();
             }
         }
 

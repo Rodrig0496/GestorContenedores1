@@ -1,4 +1,4 @@
-﻿using GestionContenedores.Models;
+﻿
 using GestionContenedores.Services;
 using System;
 using System.Collections.Generic;
@@ -19,83 +19,35 @@ namespace GestionContenedores
 {
     public partial class Form1 : Form
     {
-        private List<Contenedor> contenedores;
+        GestionDBDataContext db = new GestionDBDataContext();
+
+        private List<Contenedores> contenedores;
         private int nivelPermiso;
         private string usuarioActual;
         private GMapOverlay marcadoresOverlay = new GMapOverlay("marcadores");
 
-        public Form1(int nivelPermiso, string usuario)
+        public Form1(int nivel, string usuario)
         {
             InitializeComponent();
-            this.nivelPermiso = nivelPermiso;
+            this.nivelPermiso = nivel;
             this.usuarioActual = usuario;
-
-            //ConfigurarGrafico();
+            ConfigurarMapa();
+            ConfigurarPermisosIniciales();
             CargarDatos();
 
-            
-            if (nivelPermiso == 1) 
-            {
-                btnCambiarEstado.Enabled = false;
-                MessageBox.Show($"Bienvenido {usuario} (solo lectura)", "Acceso limitado",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show($"Bienvenido {usuario} (admin)", "Acceso total",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-
-            ConfigurarMapa();
-
         }
 
-        /*
-        private void ConfigurarGrafico()
+        private void ConfigurarPermisosIniciales()
         {
-            
-            chartBarras.Titles.Clear();
-            chartBarras.Series.Clear();
-            chartBarras.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
-            chartBarras.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+            this.Text = $"Gestión de Contenedores - {usuarioActual}";
 
-            
-            chartBarras.Legends[0].Enabled = false;
+            // Si es invitado (1), deshabilitamos edición
+            bool esAdmin = (nivelPermiso == 0);
+            btnCambiarEstado.Visible = esAdmin;
 
-            
-            chartBarras.Titles.Add("CONTENEDORES POR ESTADO");
-            chartBarras.Titles[0].Font = new System.Drawing.Font("Arial", 12, FontStyle.Bold);
+            // Texto del botón según estado
+            btnLogin.Text = esAdmin ? "Cerrar Sesión" : "Iniciar Sesión";
         }
-        
-        private void ActualizarGrafico()
-        {
-            
-            chartBarras.Series.Clear();
-
-           
-            Series series = new Series("EstadosContenedores");
-            series.ChartType = SeriesChartType.Column;
-            series.IsValueShownAsLabel = true;
-
-            // Contar contenedores por estado
-            int utilizables = contenedores.Count(c => c.Estado == "Util");
-            int llenos = contenedores.Count(c => c.Estado == "Lleno");
-
-            // Agregar datos al gráfico
-            series.Points.AddXY("Utilizables", utilizables);
-            series.Points.AddXY("Llenos", llenos);
-
-            // Colores personalizados
-            series.Points[0].Color = System.Drawing.Color.LightGreen;
-            series.Points[1].Color = System.Drawing.Color.LightCoral;
-
-            // Agregar la serie al gráfico
-            chartBarras.Series.Add(series);
-
-            // Actualizar estadísticas
-            ActualizarEstadisticas(utilizables, llenos);
-        }
-        */
 
         private void ConfigurarMapa()
         {
@@ -167,9 +119,9 @@ namespace GestionContenedores
         }
         private void CargarDatos()
         {
-            contenedores = FileService.LeerContenedores();
+            db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, db.Contenedores);
+            contenedores = db.Contenedores.ToList();
             ActualizarDataGridView();
-            //ActualizarGrafico();
             ActualizarMapa();
             DibujarPinesEnMapa();
         }
@@ -179,30 +131,27 @@ namespace GestionContenedores
             // Limpiamos marcadores viejos para no duplicar
             marcadoresOverlay.Markers.Clear();
 
-            if (contenedores == null) return;
-
             foreach (var item in contenedores)
             {
-                // Verificar que las coordenadas sean válidas (diferentes de 0)
-                if (item.Latitud != 0 && item.Longitud != 0)
+                // OJO: La clase de LINQ usa 'double?' (nullable) a veces.
+                // Aseguramos que tenga valor con .GetValueOrDefault() o casting.
+                double lat = item.Latitud;
+                double lng = item.Longitud;
+
+                if (lat != 0 && lng != 0)
                 {
-                    PointLatLng punto = new PointLatLng(item.Latitud, item.Longitud);
+                    PointLatLng punto = new PointLatLng(lat, lng);
 
-                    // Lógica de Colores: Rojo si está lleno, Verde si es útil
-                    GMarkerGoogleType tipoPin = GMarkerGoogleType.green;
-                    if (item.Estado.Trim().Equals("Lleno", StringComparison.OrdinalIgnoreCase))
-                    {
-                        tipoPin = GMarkerGoogleType.red;
-                    }
+                    GMarkerGoogleType tipo = GMarkerGoogleType.green;
+                    if (item.Estado == "Lleno") tipo = GMarkerGoogleType.red;
+                    else if (item.Estado == "Mitad") tipo = GMarkerGoogleType.yellow;
 
-                    // Crear el marcador
-                    GMapMarker marcador = new GMarkerGoogle(punto, tipoPin);
+                    GMapMarker marcador = new GMarkerGoogle(punto, tipo);
+                    marcador.ToolTipText = $"{item.Nombre}\nEstado: {item.Estado}";
 
-                    // Tooltip: Lo que sale al poner el mouse encima
-                    marcador.ToolTipText = $"{item.Nombre}\nEstado: {item.Estado}\n{item.Direccion}";
-                    marcador.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+                    // Guardamos el ID del contenedor en el Tag del marcador para usarlo luego
+                    marcador.Tag = item.Id;
 
-                    // Agregar a la capa
                     marcadoresOverlay.Markers.Add(marcador);
                 }
             }
@@ -262,38 +211,42 @@ namespace GestionContenedores
 
         private void gMapControl1_MouseClick(object sender, MouseEventArgs e)
         {
-            // 1. Verificar si fue clic DERECHO
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right && nivelPermiso == 0) // Solo admin
             {
-                // 2. Verificar si es ADMINISTRADOR (Nivel 0)
-                if (this.nivelPermiso == 0)
+                PointLatLng p = gMapControl1.FromLocalToLatLng(e.X, e.Y);
+
+                if (MessageBox.Show("¿Agregar contenedor aquí?", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    // 3. Obtener la coordenada geográfica exacta donde se hizo clic
-                    // 'FromLocalToLatLng' convierte la posición X,Y del mouse a Lat/Lng real
-                    PointLatLng puntoClic = gMapControl1.FromLocalToLatLng(e.X, e.Y);
+                    // Pasamos 'null' porque es nuevo, no estamos editando uno existente
+                    CambioEstado frm = new CambioEstado(null);
+                    frm.PrellenarCoordenadas(p.Lat, p.Lng);
 
-                    // 4. Preguntar si desea agregar
-                    DialogResult respuesta = MessageBox.Show(
-                        "¿Quiere ingresar un nuevo contenedor en este punto?",
-                        "Nuevo Contenedor",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question);
+                    // Suscribimos al evento para recargar al cerrar
+                    frm.FormClosed += (s, args) => CargarDatos();
 
-                    if (respuesta == DialogResult.Yes)
-                    {
-                        // 5. Instanciar el formulario CambioEstado
-                        // Pasamos la lista actual para mantener la referencia
-                        var formNuevo = new CambioEstado(this.contenedores);
+                    frm.ShowDialog();
+                }
+            }
+        }
 
-                        // 6. Pasar las coordenadas al formulario
-                        formNuevo.PrellenarCoordenadas(puntoClic.Lat, puntoClic.Lng);
-
-                        // 7. Suscribirnos al evento para recargar si se guarda
-                        formNuevo.ContenedorAgregado += FormCambioEstado_ContenedorAgregado;
-
-                        // 8. Mostrar el formulario
-                        formNuevo.ShowDialog();
-                    }
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            if (nivelPermiso == 0) // Si ya es admin y quiere salir
+            {
+                nivelPermiso = 1;
+                usuarioActual = "Invitado";
+                ConfigurarPermisosIniciales();
+                MessageBox.Show("Sesión cerrada.");
+            }
+            else // Si es invitado y quiere entrar
+            {
+                Login frmLogin = new Login();
+                if (frmLogin.ShowDialog() == DialogResult.OK)
+                {
+                    this.nivelPermiso = frmLogin.NivelPermiso;
+                    this.usuarioActual = frmLogin.UsuarioActual;
+                    ConfigurarPermisosIniciales();
+                    MessageBox.Show($"Bienvenido {usuarioActual}");
                 }
             }
         }

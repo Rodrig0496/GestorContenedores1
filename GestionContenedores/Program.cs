@@ -18,7 +18,7 @@ namespace GestionContenedores
             Login login = new Login();
             if (login.ShowDialog() == DialogResult.OK)
             {
-                Application.Run(new Form1(login.NivelPermiso, login.UsuarioActual));
+                Application.Run(new Form1(1, "Invitado"));
             }
         }
     }
