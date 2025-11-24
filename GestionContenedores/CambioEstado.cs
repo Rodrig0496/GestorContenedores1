@@ -1,6 +1,4 @@
-﻿using GestionContenedores.Models;
-using GestionContenedores.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,35 +12,53 @@ namespace GestionContenedores
 {
     public partial class CambioEstado : Form
     {
-        private Contenedor contenedorActual; // El objeto LINQ
-        public CambioEstado(Contenedor contenedor)
+        private Contenedores contenedorActual; // El objeto LINQ
+        public CambioEstado(Contenedores contenedor)
         {
             InitializeComponent();
-            contenedorActual = contenedor;
-
-            if (contenedorActual != null)
-            {
-                // Es EDICIÓN: Cargar datos en los textbox
-                txtId.Text = contenedorActual.Id.ToString();
-                txtNombre.Text = contenedorActual.Nombre;
-                // ... cargar resto de campos ...
-
-                // Configurar UI
-                btnAgregar.Enabled = false; // Ocultar botón agregar
-                btnGuardar.Enabled = true;  // Mostrar botón guardar cambios
-            }
-            else
-            {
-                // Es NUEVO
-                btnAgregar.Enabled = true;
-                btnGuardar.Enabled = false;
-            }
+            this.contenedorActual = contenedor;
+            CargarDatosIniciales();
         }
 
         public void PrellenarCoordenadas(double lat, double lng)
         {
             txtLatitud.Text = lat.ToString();
             txtLongitud.Text = lng.ToString();
+        }
+        private void CargarDatosIniciales()
+        {
+            // Llenar combo
+            cmbEstado.Items.Clear();
+            cmbEstado.Items.Add("Util");
+            cmbEstado.Items.Add("Lleno");
+
+            if (contenedorActual != null)
+            {
+                // MODO EDICIÓN
+                this.Text = "Editar Contenedor";
+                txtId.Text = contenedorActual.Id.ToString();
+                txtNombre.Text = contenedorActual.Nombre;
+                txtDireccion.Text = contenedorActual.Direccion;
+                txtLatitud.Text = contenedorActual.Latitud.ToString();
+                txtLongitud.Text = contenedorActual.Longitud.ToString();
+                cmbEstado.SelectedItem = contenedorActual.Estado;
+
+                // Ocultar botón agregar, mostrar guardar cambios
+                btnAgregar.Visible = false;
+                btnGuardar.Visible = true; // Este será "Guardar Cambios"
+
+                // Ajustar radio buttons
+                if (contenedorActual.Estado == "Lleno") rbtnLleno.Checked = true;
+                else rbtnUtilizable.Checked = true;
+            }
+            else
+            {
+                // MODO NUEVO
+                this.Text = "Nuevo Contenedor";
+                btnAgregar.Visible = true; // Este crea el nuevo
+                btnGuardar.Visible = false;
+                cmbEstado.SelectedIndex = 0;
+            }
         }
         private void ConfigurarFormularioAgregar()
         {
@@ -67,21 +83,12 @@ namespace GestionContenedores
 
         private void CargarComboBox()
         {
-            cmbContenedores.Items.Clear();
-
-            foreach (var contenedor in contenedores)
-            {
-                cmbContenedores.Items.Add($"{contenedor.Id} - {contenedor.Nombre}");
-            }
-
-            if (cmbContenedores.Items.Count > 0)
-            {
-                cmbContenedores.SelectedIndex = 0;
-            }
+            
         }
 
         private void cmbContenedores_SelectedIndexChanged(object sender, EventArgs e)
         {
+            /*
             if (cmbContenedores.SelectedIndex >= 0)
             {
                 int contenedorId = int.Parse(cmbContenedores.SelectedItem.ToString().Split('-')[0].Trim());
@@ -92,8 +99,10 @@ namespace GestionContenedores
                     MostrarDatosContenedor();
                 }
             }
+            */
         }
 
+        /*
         private void MostrarDatosContenedor()
         {
             
@@ -108,21 +117,31 @@ namespace GestionContenedores
                 rbtnLleno.Checked = true;
             }
         }
+        */
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            using (var db = new GestionDBDataContext())
+            try
             {
-                // Volvemos a buscar el objeto en este contexto para editarlo
-                var c = db.Contenedores.Single(x => x.Id == contenedorActual.Id);
+                using (var db = new GestionDBDataContext())
+                {
+                    // Buscamos el registro fresco en la BD
+                    var c = db.Contenedores.SingleOrDefault(x => x.Id == contenedorActual.Id);
 
-                c.Estado = rbtnUtilizable.Checked ? "Util" : "Lleno";
-                // Actualizar otros campos si es necesario...
+                    if (c != null)
+                    {
+                        // Actualizamos estado (o lo que se haya editado)
+                        c.Estado = rbtnLleno.Checked ? "Lleno" : "Util";
 
-                db.SubmitChanges(); // LINQ detecta el cambio y hace el UPDATE solo
-
-                MessageBox.Show("Estado actualizado!");
-                this.Close();
+                        db.SubmitChanges();
+                        MessageBox.Show("Estado actualizado.");
+                        this.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
 
@@ -133,22 +152,29 @@ namespace GestionContenedores
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            using (var db = new GestionDBDataContext())
+            try
             {
-                Contenedor nuevo = new Contenedor
+                using (var db = new GestionDBDataContext())
                 {
-                    Nombre = txtNombre.Text,
-                    Direccion = txtDireccion.Text,
-                    Latitud = double.Parse(txtLatitud.Text),
-                    Longitud = double.Parse(txtLongitud.Text),
-                    Estado = cmbEstado.Text
-                };
+                    Contenedores nuevo = new Contenedores
+                    {
+                        Nombre = txtNombre.Text,
+                        Direccion = txtDireccion.Text,
+                        Latitud = double.Parse(txtLatitud.Text),
+                        Longitud = double.Parse(txtLongitud.Text),
+                        Estado = cmbEstado.Text
+                    };
 
-                db.Contenedores.InsertOnSubmit(nuevo); // Prepara la inserción
-                db.SubmitChanges(); // Ejecuta el SQL
+                    db.Contenedores.InsertOnSubmit(nuevo);
+                    db.SubmitChanges();
 
-                MessageBox.Show("Guardado!");
-                this.Close();
+                    MessageBox.Show("Contenedor agregado correctamente.");
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
 
